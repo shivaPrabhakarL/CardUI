@@ -1,6 +1,6 @@
 var url = "https://randomuser.me/api/?results=" ;
 var v = 100;
-
+var limit = 12;
 function dataLoader(dataObject,arr,main,start,limit,display){
     if(dataObject !== null){
         for( var i=0;i<dataObject.length;i++ ){    
@@ -18,6 +18,10 @@ function dataLoader(dataObject,arr,main,start,limit,display){
     }
 }
 
+function disappear1(){
+    document.getElementById('loader1').style.visibility="hidden";
+}
+
 function display(arr,main,start,limit){
     console.log(start+" "+limit)
     //console.log(arr);
@@ -27,18 +31,19 @@ function display(arr,main,start,limit){
     window.onscroll = function(dataObject){
         if (((window.innerHeight+window.scrollY)  ) >= document.body.offsetHeight) 
         { 
-            display(arr,main,start,limit)
+            display(arr,main,start,limit,)
+            
         }
     };
     start = limit;
     limit  = 12+limit;
     if(limit>arr.length){
         v += v;
-        sendRequest(url+v,"results",display);
+        sendRequest(url+v,"results",display,disappear1);
     }
 }
 
 
 
 
-sendRequest(url+v,"results",display);
+sendRequest(url+v,"results",display,disappear1);

@@ -11,7 +11,7 @@ var limit = 12;
 var v = 100;
 var url1 = "s"
 
-function sendRequest(url,index,display){
+function sendRequest(url,index,display,disappear1){
     if(url1 !== url){
         arr = []
     }
@@ -20,12 +20,17 @@ function sendRequest(url,index,display){
     severReq.open("GET",url,true);
     //console.log(url+" "+index)
     severReq.onload = function() {
+        if(disappear1 !== null){
+            disappear1();
+        }
         var data = JSON.parse(this.response)
 
         const main = getElement('id','root')
            var dataObject = data[index];
+           if(dataObject !== null){
             console.log(dataObject)
             dataLoader(dataObject,arr,main,start,limit,display)
+           }
     }
     severReq.send();
 }

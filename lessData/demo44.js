@@ -1,10 +1,15 @@
+function disappear1(){
+    document.getElementById('loader1').style.visibility="hidden";
+}
+
 var v = 1;
 var url = "https://reqres.in/api/users?page=" ;
 function LoadMoreCall(){
     v = v+1;
     console.log(url+v)
-    sendRequest(url+v,"data",display)
+    sendRequest(url+v,"data",display,null)
 }
+
 
 
 function dataLoader(dataObject,arr,main,start,limit,display){
@@ -28,15 +33,10 @@ function display(arr,main,start,limit){
     else{
         hideElement('id','button'); 
     }
-    display(arr,main,start,limit)
-        start = limit;
-    limit  = 12+limit;
-    if(limit>arr.length){
-        v += v;
-        sendRequest(url+v,"results",display);
-    }
+   // display(arr,main,start,limit)
+        
 }
 
 
-sendRequest(url+v,"data",display);
+sendRequest(url+v,"data",display,disappear1);
 
