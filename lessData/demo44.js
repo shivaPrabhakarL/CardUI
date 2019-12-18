@@ -6,20 +6,37 @@ function LoadMoreCall(){
     sendRequest(url+v,"data",display)
 }
 
-function display(infoObj,main){
-    if(infoObj.length !== 0){
-        console.log(infoObj[1].first_name);
-        for( var i=0;i<infoObj.length;i++ ){
-           // dObj[i].avatar = null; 
-            var dataObj = new obj(infoObj[i].avatar, infoObj[i].first_name, infoObj[i].last_name, infoObj[i].email);
-             UIfunction(dataObj,main);
+
+function dataLoader(dataObject,arr,main,start,limit,display){
+    if(dataObject !== null){
+        for( var i=0;i<dataObject.length;i++ ){   
+            var name =  dataObject[i].first_name+" "+dataObject[i].last_name;
+            var dataObj = new obj(dataObject[i].avatar, name,dataObject[i].email);
+            arr.push(dataObj)
+        }
+        console.log(arr);
+        display(arr,main,start,limit) 
+    }
+}
+
+function display(arr,main,start,limit){
+    if(arr.length>0){
+        for(var i=start;i<limit;i++){
+            UIfunction(arr[i],main)
         }
     }
     else{
         hideElement('id','button'); 
     }
+    display(arr,main,start,limit)
+        start = limit;
+    limit  = 12+limit;
+    if(limit>arr.length){
+        v += v;
+        sendRequest(url+v,"results",display);
+    }
 }
 
 
-sendRequest(url+"1","data",display);
+sendRequest(url+v,"data",display);
 

@@ -1,24 +1,44 @@
-var url = "https://randomuser.me/api/?results=100" ;
-function LoadMoreCall(){
-    sendRequest(url,"results",display)
-}
+var url = "https://randomuser.me/api/?results=" ;
+var v = 100;
 
-function display(infoData,main){
-    
-    if(infoData.length !== 0){
-                
-        for( var i=0;i<12;i++ ){
-           // dObj[i].avatar = null; 
-           var n =  infoData[i].name;
-           var em = infoData[i].email;
-           var pic = infoData[i].picture.large;
-            var dataObj = new obj(pic, n.first, n.last, em);
-            UIfunction(dataObj,main);
+function dataLoader(dataObject,arr,main,start,limit,display){
+    if(dataObject !== null){
+        for( var i=0;i<dataObject.length;i++ ){    
+            var n =  dataObject[i].name.first+" "+dataObject[i].name.last;
+            var em = dataObject[i].email;
+            var pic = dataObject[i].picture.large;    
+            var dataObj = new obj(pic, n, em);
+            arr.push(dataObj)
         }
+        console.log(arr);
+        display(arr,main,start,limit)
     }
     else{
-        hideElement('id','button'); 
+        alert("dscdsv");
     }
 }
 
-sendRequest(url,"results",display);
+function display(arr,main,start,limit){
+    console.log(start+" "+limit)
+    //console.log(arr);
+    for(var i=start;i<limit;i++){
+        UIfunction(arr[i],main)
+    }
+    window.onscroll = function(dataObject){
+        if (((window.innerHeight+window.scrollY)  ) >= document.body.offsetHeight) 
+        { 
+            display(arr,main,start,limit)
+        }
+    };
+    start = limit;
+    limit  = 12+limit;
+    if(limit>arr.length){
+        v += v;
+        sendRequest(url+v,"results",display);
+    }
+}
+
+
+
+
+sendRequest(url+v,"results",display);
