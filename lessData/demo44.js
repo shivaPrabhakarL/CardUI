@@ -37,6 +37,13 @@ function display(arr,main,start,limit){
         
 }
 
+function load(){
+    const loader1 = document.createElement('div');
+    loader1.setAttribute('id','loader1');
 
-sendRequest(url+v,"data",display,disappear1);
+    document.body.appendChild(loader1);
+    sendRequest("https://reqres.in/api/users?page=",1,"data",disappear1,UIfunction);
+}
+
+
 

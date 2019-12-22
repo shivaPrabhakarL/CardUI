@@ -1,23 +1,12 @@
-class obj {
-    constructor (avatar,name,email){
-        this.email = email;
-        this.avatar = avatar;
-        this.name = name;
-    }
-} 
-var arr = []
-var start = 0;
-var limit = 12;
-var v = 100;
-var url1 = "s"
+//const {dataLoader} = require('../moreData/demo55');
 
-function sendRequest(url,index,display,disappear1){
-    if(url1 !== url){
-        arr = []
-    }
-     
+
+
+function sendRequest(url,v,index,disappear1,UIfunction){
+   
+    var url1 = url+v;
     const severReq = new XMLHttpRequest();
-    severReq.open("GET",url,true);
+    severReq.open("GET",url1,true);
     //console.log(url+" "+index)
     severReq.onload = function() {
         if(disappear1 !== null){
@@ -25,16 +14,17 @@ function sendRequest(url,index,display,disappear1){
         }
         var data = JSON.parse(this.response)
 
-        const main = getElement('id','root')
+        
            var dataObject = data[index];
            if(dataObject !== null){
-            console.log(dataObject)
-            dataLoader(dataObject,arr,main,start,limit,display)
+            //console.log(dataObject)
+            dataLoader(dataObject,url,v,0,12,UIfunction,sendRequest)
            }
     }
     severReq.send();
 }
 
+//module.exports()
 
 
 
@@ -100,10 +90,11 @@ function getElement(selector,name){
 // }
 
 function appendChildToParent(parent,child){
+    console.log(parent)
     return parent.appendChild(child);
 }
 
-function dataValidation(info,NullInfo,nullTag,nullSelector,nullSelectorName,noNullTag,noNullSelector,noNullSelectorName){
+function dataValidation(info,nullInfo,nullTag,nullSelector,nullSelectorName,noNullTag,noNullSelector,noNullSelectorName){
     if(info !== null){
         if(noNullTag === "img"){
             logo = createTags('img',noNullSelector,noNullSelectorName);
@@ -124,7 +115,7 @@ function dataValidation(info,NullInfo,nullTag,nullSelector,nullSelectorName,noNu
     }       
     else{
             imgh3 =createTags(nullTag,nullSelector,nullSelectorName)
-            imgh3.textContent=NullInfo;
+            imgh3.textContent=nullInfo;
             return imgh3;
     }
 }
@@ -135,11 +126,11 @@ function hideElement(selector,name){
 }
 
 function UIfunction(details,main){
-        //console.log(details)
+       // console.log(details)
         const container = createTags('div','class', 'container');
-        
-        var str = details.name;
         var str1 = details.email;
+        var str = details.name;
+        
         if(str === null || str1 === null ){
             var str = "N A";
         }
@@ -176,3 +167,5 @@ function UIfunction(details,main){
         
         appendChildToParent(card,txtdiv);
 }
+
+module.exports= {sendRequest,UIfunction};

@@ -1,0 +1,23 @@
+{
+  "name": "cardui",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "jest": "^24.9.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shivaPrabhakarL/CardUI.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shivaPrabhakarL/CardUI/issues"
+  },
+  "homepage": "https://github.com/shivaPrabhakarL/CardUI#readme"
+}
